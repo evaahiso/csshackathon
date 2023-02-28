@@ -1,18 +1,10 @@
 import time, os
 from flask import Flask, render_template, request
-# import Response
 
 app = Flask(__name__)
 app.static_folder = os.path.abspath('static')
-app.template_folder = os.path.abspath(
-  '/home/minjing/mysite/static')
+app.template_folder = os.path.abspath('/home/minjing/mysite/static')
 
-# need to be user input.
-# points = 200000
-# n = request.args['steps'] #gets steps from health app
-# request.
-
-# 5 points = 1 char
 
 def generate_building(building_file_path, num_of_char):
     with open('/home/minjing/mysite/static/' + building_file_path, 'r', encoding='utf-8') as file:
@@ -40,6 +32,7 @@ def generate(num_of_char):
         "building5.txt"
     ]
 
+    # create a String to store the char we need
     response = ""
     for file in building_files:
         response += "".join(generate_building(file, num_of_char))
@@ -50,11 +43,11 @@ def generate(num_of_char):
 def index():
     n = request.args.get('steps')
     if n is not None:
-        num_of_char = int(n) // 5
+        num_of_char = int(n) // 5  # 5 points = 1 char
     else:
-        num_of_char = 0
+        num_of_char = 0 # if no user input of steps, 0 char returned
 
-    return generate(num_of_char)
+    return generate(num_of_char) # return a String contains the char
 
 
 if __name__ == '__main__':
